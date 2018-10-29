@@ -4,9 +4,9 @@ class Kalkulator{
 
     public function Kalkulator(){
         $servername = "localhost";
-        $username   = "admin";
-        $password   = "1234";
-        $db         = "WebDasar";       
+        $username   = "root";
+        $password   = "";
+        $db         = "oop";       
         $this->conn = mysqli_connect($servername, $username, 
                            $password, $db);                        
     }    
@@ -21,13 +21,24 @@ class Kalkulator{
     public function kurang(){        
         $angka1 = $_POST['input1'];
         $angka2 = $_POST['input2'];
-        $sql    = "DELETE FROM siswa WHERE nim=$angka2";        
+        $sql    = "DELETE FROM siswa WHERE nim=$angka2
+        ";        
         mysqli_query($this->conn, $sql);
     }
     public function bagi(){
         $sql    = "SELECT * FROM siswa";        
         return mysqli_query($this->conn, $sql);
 
+    }
+    function edit($nim){
+        $data = mysql_query("select * from siswa where nim='$nim'");
+        while($d = mysql_fetch_array($data)){
+            $hasil[] = $d;
+        }
+        return $hasil;
+    }
+    function update($nama,$nim,$tgl_lahir){
+        mysql_query("update siswa set nama='$nama', nim='$nim', tgl_lahir='$tgl_lahir' where nim='$nim'");
     }
 }
 $operasi = $_POST["operasi"];
